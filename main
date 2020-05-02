@@ -1,0 +1,30 @@
+#!/bin/bash
+
+LANG=en_us_8859_1
+
+initial_block_reward=5000000000 # 50 BTC in satoshis
+halving_every_num_blocks=210000
+last_bitcoin_halving_num=3 # 5,000,000,000 satoshis (first block reward) / 2^33 = 1.1 BTC block reward. Bitcoin can't have a reward less than 1 satoshi.
+
+block_count=$(http --body --json https://blockchain.info/q/getblockcount)
+
+current_halving_index=$(($block_count / $halving_every_num_blocks))
+if [ $current_halving_index -gt $last_bitcoin_halving_num ]; then
+    current_halving_power=$initial_block_reward
+else
+    current_halving_power=$((2 ** $current_halving_index))
+fi
+current_block_reward=$(($initial_block_reward / $current_halving_power))
+
+next_halving_index=$((1 + $current_halving_index))
+next_halving_height=$(($next_halving_index * $halving_every_num_blocks))
+
+if [ $next_halving_index -gt $last_bitcoin_halving_num ]; then
+    next_halving_power=$initial_block_reward
+else
+    next_halving_power=$((2 ** $next_halving_index))
+fi
+next_block_subsidy=$(($initial_block_reward / $next_halving_power))
+
+echo $(date) : $((($next_halving_height - $block_count))) remaining blocks until halving number $next_halving_index.
+echo At block $next_halving_height, maximum block reward will go from $current_block_reward satoshis to $next_block_subsidy satoshis.
