@@ -4,7 +4,7 @@ LANG=en_us_8859_1
 
 initial_block_reward=5000000000 # 50 BTC in satoshis
 halving_every_num_blocks=210000
-last_bitcoin_halving_num=3 # 5,000,000,000 satoshis (first block reward) / 2^33 = 1.1 BTC block reward. Bitcoin can't have a reward less than 1 satoshi.
+last_bitcoin_halving_num=33 # 5,000,000,000 satoshis (first block reward) / 2^33 = 1.1 BTC block reward. Bitcoin can't have a reward less than 1 satoshi.
 
 block_count=$(curl -s https://blockchain.info/q/getblockcount)
 
