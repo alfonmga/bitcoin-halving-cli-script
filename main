@@ -3,13 +3,13 @@
 LANG=en_us_8859_1
 
 initial_block_reward=5000000000 # 50 BTC in satoshis
-halving_every_num_blocks=210000
-last_bitcoin_halving_num=33 # 5,000,000,000 satoshis (first block reward) / 2^33 = 1.1 BTC block reward. Bitcoin can't have a reward less than 1 satoshi.
+halving_after_num_blocks=210000
+num_last_bitcoin_halving=33 # 5,000,000,000 satoshis (first block reward) / 2^33 = 1.1 BTC block reward. Bitcoin can't have a reward less than 1 satoshi.
 
 block_count=$(curl -s https://blockchain.info/q/getblockcount)
 
-current_halving_index=$(($block_count / $halving_every_num_blocks))
-if [ $current_halving_index -gt $last_bitcoin_halving_num ]; then
+current_halving_index=$(($block_count / $halving_after_num_blocks))
+if [ $current_halving_index -gt $num_last_bitcoin_halving ]; then
     current_halving_power=$initial_block_reward
 else
     current_halving_power=$((2 ** $current_halving_index))
@@ -17,9 +17,9 @@ fi
 current_block_reward=$(($initial_block_reward / $current_halving_power))
 
 next_halving_index=$((1 + $current_halving_index))
-next_halving_height=$(($next_halving_index * $halving_every_num_blocks))
+next_halving_height=$(($next_halving_index * $halving_after_num_blocks))
 
-if [ $next_halving_index -gt $last_bitcoin_halving_num ]; then
+if [ $next_halving_index -gt $num_last_bitcoin_halving ]; then
     next_halving_power=$initial_block_reward
 else
     next_halving_power=$((2 ** $next_halving_index))
