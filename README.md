@@ -6,7 +6,7 @@ Installation
 ------------
 ```sh
 git clone https://github.com/alfonmga/bitcoin-halving-cli-script
-cd bitcoin-halving-cli-script
+cd bitcoin-halving-cli-script/
 chmod +x main
 ./main
 ```
