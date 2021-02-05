@@ -26,5 +26,5 @@ else
 fi
 next_block_reward=$(($initial_block_reward / $next_halving_power))
 
-echo $(date) : $((($next_halving_height - $block_count))) remaining blocks until halving number $next_halving_index.
+echo $(date): $((($next_halving_height - $block_count))) remaining blocks until halving number $next_halving_index.
 echo At block $next_halving_height, maximum block reward will go from $current_block_reward satoshis to $next_block_reward satoshis.
